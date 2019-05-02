@@ -62,6 +62,13 @@ resource "aws_elasticsearch_domain" "es" {
     volume_type = "${var.ebs_volume_type}"
   }
 
+  cognito_options {
+    enabled = "${var.enable_cognito_auth}"
+    user_pool_id = "${var.cognito_user_pool_id}"
+    identity_pool_id = "${var.cognito_identity_pool_id}"
+    role_arn = "${var.cognito_role_arn}"
+  }
+
   snapshot_options {
     automated_snapshot_start_hour = "${var.snapshot_start_hour}"
   }
