@@ -16,6 +16,23 @@ data "aws_iam_policy_document" "es_management_access" {
 
       identifiers = ["${distinct(compact(var.management_iam_roles))}"]
     }
+  }
+
+  statement {
+    actions = [
+      "es:*",
+    ]
+
+    resources = [
+      "${aws_elasticsearch_domain.es.arn}",
+      "${aws_elasticsearch_domain.es.arn}/*",
+    ]
+
+    principals {
+      type = "AWS"
+
+      identifiers = ["*"]
+    }
 
     condition {
       test     = "IpAddress"
